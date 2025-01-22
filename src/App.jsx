@@ -1,5 +1,11 @@
+import { Navbar } from "@/modules/NavigationBar/index";
+
 function App() {
-  return <></>;
+  return (
+    <>
+      <Navbar></Navbar>
+    </>
+  );
 }
 
 export default App;

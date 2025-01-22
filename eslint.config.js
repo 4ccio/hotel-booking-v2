@@ -3,6 +3,7 @@ import globals from "globals";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
+import eslintConfigPrettier from "eslint-config-prettier";
 
 export default [
   { ignores: ["dist"] },
@@ -36,4 +37,5 @@ export default [
       "react/prop-types": "off",
     },
   },
+  eslintConfigPrettier,
 ];
