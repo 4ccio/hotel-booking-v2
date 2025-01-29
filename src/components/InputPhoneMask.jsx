@@ -1,13 +1,15 @@
 import { Input } from "@/ui/input";
+import { forwardRef } from "react";
 import InputMask from "react-input-mask";
 
-const InputPhoneMask = ({ className }) => {
+const InputPhoneMask = forwardRef(({ className, ...props }, ref) => {
   return (
-    <InputMask mask="+7 (999) 999-99-99">
-      {() => <Input className={className} placeholder="+7"></Input>}
-      {/* <Input className={className} placeholder="+7"></Input> */}
+    <InputMask mask="+7 (999) 999-99-99" {...props}>
+      {() => <Input className={className} placeholder="+7" ref={ref}></Input>}
     </InputMask>
   );
-};
+});
+
+InputPhoneMask.displayName = "InputPhoneMask";
 
 export default InputPhoneMask;
