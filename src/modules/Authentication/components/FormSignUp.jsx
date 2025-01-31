@@ -6,7 +6,11 @@ import { Button } from "@/ui/button";
 import InputPhoneMask from "@/components/InputPhoneMask";
 import InputWithStartIcon from "@/components/InputWithStartIcon";
 import InputPassword from "@/components/InputPassword";
-import { rules } from "../validation/validationRules";
+import {
+  rules,
+  handleInputChange,
+  inputRules,
+} from "../validation/validationRules";
 
 const FormSignUp = () => {
   const {
@@ -18,11 +22,14 @@ const FormSignUp = () => {
     telegram: { name: telegram, rules: telegramRules },
   } = rules;
 
+  const { removeDigits, removeSpaces } = inputRules;
+
   const {
     handleSubmit,
     formState: { errors },
     control,
   } = useForm({
+    mode: "onSubmit",
     defaultValues: {
       [firstName]: "",
       [surname]: "",
@@ -53,7 +60,18 @@ const FormSignUp = () => {
             name={firstName}
             control={control}
             rules={firstNameRules}
-            render={({ field }) => <Input {...field} />}
+            render={({ field }) => (
+              <Input
+                {...field}
+                onChange={(e) => {
+                  const newValue = handleInputChange(e, {
+                    removeSpaces,
+                    removeDigits,
+                  });
+                  field.onChange(newValue);
+                }}
+              />
+            )}
           />
         </div>
         <div>
@@ -69,7 +87,18 @@ const FormSignUp = () => {
             name={surname}
             control={control}
             rules={surnameRules}
-            render={({ field }) => <Input {...field} />}
+            render={({ field }) => (
+              <Input
+                {...field}
+                onChange={(e) => {
+                  const newValue = handleInputChange(e, {
+                    removeSpaces,
+                    removeDigits,
+                  });
+                  field.onChange(newValue);
+                }}
+              />
+            )}
           />
         </div>
         <div>
@@ -89,7 +118,18 @@ const FormSignUp = () => {
             name={patronymic}
             control={control}
             rules={patronymicRules}
-            render={({ field }) => <Input {...field} />}
+            render={({ field }) => (
+              <Input
+                {...field}
+                onChange={(e) => {
+                  const newValue = handleInputChange(e, {
+                    removeSpaces,
+                    removeDigits,
+                  });
+                  field.onChange(newValue);
+                }}
+              />
+            )}
           />
         </div>
         <div>
@@ -121,7 +161,18 @@ const FormSignUp = () => {
             name={password}
             control={control}
             rules={passwordRules}
-            render={({ field }) => <InputPassword {...field} />}
+            render={({ field }) => (
+              <InputPassword
+                {...field}
+                onChange={(e) => {
+                  const newValue = handleInputChange(e, {
+                    removeSpaces,
+                    // onlyLatin,
+                  });
+                  field.onChange(newValue);
+                }}
+              />
+            )}
           />
         </div>
         <div>
@@ -142,7 +193,16 @@ const FormSignUp = () => {
             control={control}
             rules={telegramRules}
             render={({ field }) => (
-              <InputWithStartIcon icon={AtSign} {...field} />
+              <InputWithStartIcon
+                icon={AtSign}
+                {...field}
+                onChange={(e) => {
+                  const newValue = handleInputChange(e, {
+                    removeSpaces,
+                  });
+                  field.onChange(newValue);
+                }}
+              />
             )}
           />
         </div>
