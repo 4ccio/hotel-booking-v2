@@ -7,8 +7,8 @@ import {
   DialogDescription,
 } from "@/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
-import SignInCard from "./CardSignIn";
-import SignUpCard from "./CardSignUp";
+import SignInCard from "./SignIn/CardSignIn";
+import SignUpCard from "./SignUp/CardSignUp";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 const AuthDialog = ({ children }) => {

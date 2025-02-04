@@ -12,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
 
 import { Heart, CircleUserRound } from "lucide-react";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { BREAKPOINTS as bp } from "@/constants/breakpoints";
+import { BREAKPOINTS as bp } from "@/config/breakpoints";
 import logo from "@/assets/logo.svg";
 import { AuthDialog } from "@/modules/Authentication";
 

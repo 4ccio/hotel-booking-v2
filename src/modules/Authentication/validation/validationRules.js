@@ -1,40 +1,14 @@
 export const inputRules = {
   removeDigits: (value) => value.replace(/\d/g, ""),
   removeSpaces: (value) => value.replace(/\s/g, ""),
-  // onlyLatin: (value) => value.replace(/[^a-zA-Z]/g, ""),
+  onlyDigits: (value) => value.replace(/\D/g, ""),
 };
 
 export function handleInputChange(e, appliedRules) {
   let newValue = e.target.value;
-
-  // appliedRules.forEach((rule) => {
-  //   newValue = rule(newValue);
-  // });
-
   Object.values(appliedRules).forEach((rule) => (newValue = rule(newValue)));
-
-  // if (inputRules.removeDigits) {
-  //   newValue = newValue.replace(/\d/g, "");
-  // }
-
-  // if (inputRules.removeSpaces) {
-  //   newValue = newValue.replace(/\s/g, "");
-  // }
-
-  // if (inputRules.onlyLatin) {
-  //   newValue = newValue.replace(/[^a-zA-Z]/g, "");
-  // }
-
   return newValue;
 }
-
-export const validatePhone = (value) => {
-  const cleanedValue = value.replace(/\D/g, "");
-  if (cleanedValue.length !== 11) {
-    return "обязательное поле";
-  }
-  return true;
-};
 
 export const rules = {
   firstName: {
@@ -59,7 +33,10 @@ export const rules = {
     name: "phoneNumber",
     rules: {
       required: "обязательное поле",
-      validate: validatePhone,
+      minLength: {
+        value: 11,
+        message: "номер неполный",
+      },
     },
   },
   password: {
