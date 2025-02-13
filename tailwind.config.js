@@ -30,6 +30,9 @@ export default {
           "2xl": "6rem",
         },
       },
+      backgroundImage: {
+        "hotel-search": "url('@/assets/street.jpg')",
+      },
       // shadcn styles
       borderRadius: {
         lg: "var(--radius)",
