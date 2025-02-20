@@ -1,15 +1,5 @@
 import { Link } from "react-router";
 import { Button } from "@/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/ui/dialog";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
-
 import { Heart, CircleUserRound } from "lucide-react";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { BREAKPOINTS as bp } from "@/config/breakpoints";
@@ -22,7 +12,7 @@ const Navbar = () => {
   return (
     <nav className="container mx-auto flex w-full items-center justify-between py-4">
       <Link to={"/"} className="flex items-center">
-        <img src={logo} alt="logo" className="mr-2 size-12"></img>
+        <img src={logo} alt="logo" className="mr-2 size-10 sm:size-12"></img>
         <span className="text-xl font-bold sm:text-2xl">myHotel</span>
       </Link>
       <div className="flex items-center gap-2 sm:gap-6">

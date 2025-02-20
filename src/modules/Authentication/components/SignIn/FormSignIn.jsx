@@ -11,6 +11,7 @@ const REQUEST_TYPE = API_URLS.login;
 const loginFields = pickFormFields(formFields, ["phoneNumber", "password"]);
 
 const FormSignIn = ({ setParentError }) => {
+  console.log("render");
   const {
     handleSubmit,
     formState: { errors },
@@ -52,7 +53,7 @@ const FormSignIn = ({ setParentError }) => {
           }) => (
             <div key={name}>
               <div className="mb-0.5 flex items-center justify-between">
-                <Label>{label}</Label>
+                <Label htmlFor={name}>{label}</Label>
                 {errors[name] ? (
                   <span className="text-sm text-warning-text">
                     {errors[name].message}
@@ -69,6 +70,7 @@ const FormSignIn = ({ setParentError }) => {
                 rules={rules}
                 render={({ field }) => (
                   <Input
+                    id={name}
                     {...field}
                     {...(icon ? { icon } : {})}
                     onChange={(e) => {

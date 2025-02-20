@@ -1,13 +1,18 @@
-import { forwardRef, useState } from "react";
-import { addDays, format, setDefaultOptions } from "date-fns";
+import { forwardRef, useMemo, useState } from "react";
+import { format, setDefaultOptions } from "date-fns";
 import { ru } from "date-fns/locale";
-import { Calendar as CalendarIcon } from "lucide-react";
+import { Calendar as CalendarIcon, CircleX, Trash2 } from "lucide-react";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { BREAKPOINTS as bp } from "@/config/breakpoints";
 import { cn } from "@/lib/utils";
 import { Button } from "@/ui/button";
 import { Calendar } from "@/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover";
+import {
+  Popover,
+  PopoverClose,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/ui/popover";
 import {
   Drawer,
   DrawerClose,
@@ -17,16 +22,9 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/ui/drawer";
+import { Separator } from "@/ui/separator";
 
 setDefaultOptions({ locale: ru });
-
-function useDateRange() {
-  const [date, setDate] = useState({
-    from: new Date(),
-    to: addDays(new Date(), 1),
-  });
-  return { date, setDate };
-}
 
 const DatePickerButton = forwardRef(({ date, className, ...props }, ref) => (
   <Button
@@ -41,79 +39,135 @@ const DatePickerButton = forwardRef(({ date, className, ...props }, ref) => (
     {...props}
   >
     <CalendarIcon size={20} className="text-muted-foreground" />
-    <span>
-      {date?.from
-        ? date.to
-          ? `${format(date.from, "d LLL, y")} — ${format(date.to, "d LLL, y")}`
-          : format(date.from, "d LLL y")
-        : "Заезд - Выезд"}
-    </span>
+    {date?.from ? (
+      date.to ? (
+        `${format(date.from, "d LLL, y")} — ${format(date.to, "d LLL, y")}`
+      ) : (
+        format(date.from, "d LLL y")
+      )
+    ) : (
+      <span className="text-muted-foreground">Заезд — Выезд</span>
+    )}
   </Button>
 ));
 
-function DatePickerPopover({ date, setDate, className }) {
-  return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <DatePickerButton date={date} className={className} />
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="center">
-        <Calendar
-          initialFocus
-          mode="range"
-          defaultMonth={date?.from}
-          selected={date}
-          onSelect={setDate}
-          numberOfMonths={2}
-          disabled={{ before: new Date() }}
-          locale={ru}
-          min={2}
-          required
-        />
-      </PopoverContent>
-    </Popover>
-  );
-}
+const DatePickerPopover = forwardRef(({ date, setDate, className }, ref) => (
+  <Popover>
+    <PopoverTrigger asChild>
+      <DatePickerButton ref={ref} date={date} className={className} />
+    </PopoverTrigger>
+    <PopoverContent className="w-auto p-4" align="center">
+      <Calendar
+        className={"p-0"}
+        initialFocus
+        autoFocus
+        mode="range"
+        defaultMonth={date?.from}
+        selected={date}
+        onSelect={setDate}
+        numberOfMonths={2}
+        disabled={{ before: new Date() }}
+        locale={ru}
+        min={2}
+        max={30}
+      />
+      <Separator className="my-4" />
+      <div className="flex justify-end gap-4">
+        <Button
+          size={"sm"}
+          variant="outline"
+          onClick={() => {
+            if (date?.from || date?.to) {
+              setDate({ from: "", to: "" });
+            }
+          }}
+        >
+          Очистить
+        </Button>
+        <PopoverClose asChild>
+          <Button size={"sm"} disabled={!date?.from || !date?.to}>
+            Выбрать
+          </Button>
+        </PopoverClose>
+      </div>
+    </PopoverContent>
+  </Popover>
+));
 
-function DatePickerDrawer({ date, setDate, className }) {
-  return (
-    <Drawer>
-      <DrawerTrigger asChild>
-        <DatePickerButton date={date} className={className} />
-      </DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>Выберите дату заезда и выезда</DrawerTitle>
-        </DrawerHeader>
-        <Calendar
-          initialFocus
-          mode="range"
-          defaultMonth={date?.from}
-          selected={date}
-          onSelect={setDate}
-          numberOfMonths={1}
-          disabled={{ before: new Date() }}
-          locale={ru}
-          min={2}
-          required
-        />
-        <DrawerFooter>
-          <DrawerClose asChild>
-            <Button variant="outline">Закрыть</Button>
-          </DrawerClose>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
-  );
-}
+const DatePickerDrawer = forwardRef(({ date, setDate, className }, ref) => (
+  <Drawer>
+    <DrawerTrigger asChild>
+      <DatePickerButton ref={ref} date={date} className={className} />
+    </DrawerTrigger>
+    <DrawerContent>
+      <DrawerHeader>
+        <DrawerTitle>Выберите дату заезда и выезда</DrawerTitle>
+      </DrawerHeader>
+      <Calendar
+        initialFocus
+        autoFocus
+        mode="range"
+        defaultMonth={date?.from}
+        selected={date}
+        onSelect={setDate}
+        numberOfMonths={1}
+        disabled={{ before: new Date() }}
+        locale={ru}
+        min={2}
+        max={30}
+      />
+      <DrawerFooter className={"grid grid-cols-2 gap-4"}>
+        <div className="col-span-1">
+          <Button
+            className="w-full"
+            variant="outline"
+            onClick={() => {
+              if (date?.from || date?.to) {
+                setDate({ from: "", to: "" });
+              }
+            }}
+          >
+            <Trash2 size={16}></Trash2>
+            Очистить
+          </Button>
+        </div>
+        <DrawerClose asChild className="col-span-1">
+          <Button className="w-full" variant="outline">
+            <CircleX size={16}></CircleX>
+            Закрыть
+          </Button>
+        </DrawerClose>
+        <DrawerClose asChild className="col-span-2">
+          <Button className="w-full" disabled={!date?.from || !date?.to}>
+            Выбрать
+          </Button>
+        </DrawerClose>
+      </DrawerFooter>
+    </DrawerContent>
+  </Drawer>
+));
 
-export function DatePickerWithRange({ className }) {
-  const { date, setDate } = useDateRange();
-  const isMobile = useMediaQuery(bp.sm);
+export const DatePickerWithRange = forwardRef(
+  ({ className, value, onChange, ...props }, ref) => {
+    console.log("DatePickerWithRange render");
+    const isMobile = useMediaQuery(bp.sm);
 
-  return isMobile ? (
-    <DatePickerDrawer date={date} setDate={setDate} className={className} />
-  ) : (
-    <DatePickerPopover date={date} setDate={setDate} className={className} />
-  );
-}
+    return isMobile ? (
+      <DatePickerDrawer
+        ref={ref}
+        date={value}
+        setDate={onChange}
+        className={className}
+        {...props}
+      />
+    ) : (
+      <DatePickerPopover
+        ref={ref}
+        date={value}
+        setDate={onChange}
+        className={className}
+        {...props}
+      />
+    );
+  },
+);
