@@ -3,7 +3,8 @@ import { Input } from "@/ui/input";
 import InputPhoneMask from "@/components/InputPhoneMask";
 import InputWithStartIcon from "@/components/InputWithStartIcon";
 import InputPassword from "@/components/InputPassword";
-import { rules, inputRules } from "../validation/validationRules";
+import { rules } from "../validation/validationRules";
+import { inputRules } from "@/lib/sanitizers";
 
 export const pickFormFields = (fields, reqiredFileds) =>
   fields.filter((filed) => reqiredFileds.includes(filed.name));

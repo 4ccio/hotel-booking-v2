@@ -10,53 +10,11 @@ import {
 } from "@/ui/card";
 import { Input } from "@/ui/input";
 import { Label } from "@/ui/label";
-import Tooltip from "@/components/Tooltip";
 import { useState } from "react";
+import { inputRules } from "@/lib/sanitizers";
+import { fields as rules } from "../constants/formFieldsData";
 
-const validateDates = (data) => {
-  const { from, to } = data;
-
-  if (!from || !to) {
-    return "Введите дату заезда и выезда";
-  }
-
-  // эта проверка необязательна, т.к. DatePickerWithRange не разрешит выставить дату from позже чем to, но на всякий случай)
-  if (from > to) {
-    return "Дата заезда не может быть позже даты выезда";
-  }
-};
-
-const onlyDigits = (value) => value.replace(/\D/g, "");
-
-const rules = {
-  destination: {
-    name: "destination",
-    rules: {
-      required: "Обязательное поле",
-    },
-  },
-  dates: {
-    name: "dates",
-    rules: {
-      validate: validateDates,
-    },
-  },
-  guests: {
-    name: "guests",
-    rules: {
-      required: "Обязательное поле",
-      min: {
-        value: 1,
-        message: "Минимум 1 гость",
-      },
-      max: {
-        value: 10,
-        message: "Максимум 10 гостей",
-      },
-      // validate: onlyDigits,
-    },
-  },
-};
+const { onlyDigits } = inputRules;
 
 const FormHotelSearch = () => {
   // console.trace("Form render");
