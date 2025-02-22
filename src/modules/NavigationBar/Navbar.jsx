@@ -8,11 +8,11 @@ import { AuthDialog } from "@/modules/Authentication";
 
 const Navbar = () => {
   const isMobile = useMediaQuery(bp.sm);
-  console.log(isMobile);
+
   return (
-    <nav className="container mx-auto flex w-full items-center justify-between py-4">
+    <nav className="container mx-auto flex w-full items-center justify-between py-2 sm:py-4">
       <Link to={"/"} className="flex items-center">
-        <img src={logo} alt="logo" className="mr-2 size-10 sm:size-12"></img>
+        <img src={logo} alt="logo" className="mr-2 size-8 sm:size-10"></img>
         <span className="text-xl font-bold sm:text-2xl">myHotel</span>
       </Link>
       <div className="flex items-center gap-2 sm:gap-6">

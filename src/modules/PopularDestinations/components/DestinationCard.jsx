@@ -1,5 +1,3 @@
-import Overlay from "@/components/DarkBlurOverlay";
-
 const DestinationCard = ({ imgUrl, city, country, price }) => {
   return (
     <div
@@ -10,7 +8,7 @@ const DestinationCard = ({ imgUrl, city, country, price }) => {
       <div className="relative flex h-full items-end">
         <div className="flex h-fit w-full justify-between gap-x-1 p-3 text-primary-foreground">
           <div className="flex flex-col items-start">
-            <span className="text-xl font-bold">{city}</span>
+            <span className="text-lg font-bold">{city}</span>
             <span className="text-sm font-semibold">{country}</span>
           </div>
           <div className="flex flex-col items-end">
