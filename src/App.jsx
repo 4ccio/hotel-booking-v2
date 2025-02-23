@@ -1,7 +1,7 @@
 import { Navbar } from "@/modules/NavigationBar";
 import { HotelSearch } from "@/modules/HotelSearch";
-import { PopularDestinations } from "./modules/PopularDestinations";
-import { Footer } from "./modules/Footer";
+import { PopularDestinations } from "@/modules/PopularDestinations";
+import { Footer } from "@/modules/Footer";
 
 function App() {
   return (

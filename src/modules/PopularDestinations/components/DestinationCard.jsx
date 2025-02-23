@@ -1,10 +1,12 @@
+import DarkOverlay from "@/components/DarkOverlay";
+
 const DestinationCard = ({ imgUrl, city, country, price }) => {
   return (
     <div
       className={`relative h-full overflow-hidden rounded-md bg-cover bg-center`}
       style={{ backgroundImage: `url(${imgUrl})` }}
     >
-      <div className="absolute inset-0 bg-foreground/30"></div>
+      <DarkOverlay />
       <div className="relative flex h-full items-end">
         <div className="flex h-fit w-full justify-between gap-x-1 p-3 text-primary-foreground">
           <div className="flex flex-col items-start">
