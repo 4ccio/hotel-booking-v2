@@ -7,15 +7,19 @@ import {
 } from "@/ui/carousel";
 import DestinationCard from "./DestinationCard";
 import { DESTINATIONS } from "../constants/destinations";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { BREAKPOINTS as bp } from "@/config/breakpoints";
 
 const PopularDestinations = () => {
+  const isMobile = useMediaQuery(bp.sm);
+
   return (
     <section className="mt-6">
       <div className="container mx-auto w-full">
         <h2 className="mb-4 text-center text-xl font-semibold lg:text-2xl">
           Популярные направления
         </h2>
-        <div className="px-10 sm:px-12">
+        <div className={!isMobile ? "px-10 sm:px-12" : ""}>
           <Carousel
             opts={{
               align: "start",
@@ -39,8 +43,10 @@ const PopularDestinations = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <div className="mt-4 space-x-4">
+              <CarouselPrevious isMobile={isMobile} />
+              <CarouselNext isMobile={isMobile} />
+            </div>
           </Carousel>
         </div>
       </div>
