@@ -1,6 +1,7 @@
-import { Navbar } from "@/modules/NavigationBar/index";
-import { HotelSearch } from "@/modules/HotelSearch/index";
-import { PopularDestinations } from "./modules/PopularDestinations/index";
+import { Navbar } from "@/modules/NavigationBar";
+import { HotelSearch } from "@/modules/HotelSearch";
+import { PopularDestinations } from "./modules/PopularDestinations";
+import { Footer } from "./modules/Footer";
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <Navbar></Navbar>
       <HotelSearch></HotelSearch>
       <PopularDestinations></PopularDestinations>
+      <Footer></Footer>
     </>
   );
 }

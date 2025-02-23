@@ -10,26 +10,14 @@ import {
 } from "@/ui/card";
 import { Input } from "@/ui/input";
 import { Label } from "@/ui/label";
-import { useState } from "react";
 import { inputRules } from "@/lib/sanitizers";
 import { fields as rules } from "../constants/formFieldsData";
 
 const { onlyDigits } = inputRules;
 
+const { destination, dates, guests } = rules;
+
 const FormHotelSearch = () => {
-  // console.trace("Form render");
-  console.log("Form render");
-
-  const [isShowTooltip, setIsShowTooltip] = useState(false);
-  console.log("isShowTooltip", isShowTooltip);
-
-  const handleToggleTooltip = (isError) => {
-    console.log("isError", isError);
-    setIsShowTooltip((prevState) => {
-      return isError ? !prevState : prevState;
-    });
-  };
-
   const {
     control,
     handleSubmit,
@@ -45,8 +33,6 @@ const FormHotelSearch = () => {
     },
   });
 
-  // console.log("render");
-
   const handleFormSubmit = (data) => {
     // alert(JSON.stringify(data));
   };
@@ -60,31 +46,32 @@ const FormHotelSearch = () => {
           количество гостей
         </CardDescription>
       </CardHeader>
-      <CardContent className="">
+      <CardContent>
         <form onSubmit={handleSubmit(handleFormSubmit)}>
           <div className="grid grid-cols-2 gap-6 xl:grid-cols-12 xl:gap-4">
             <div className="relative col-span-2 xl:col-span-4">
               <div>
-                <Label>Место назначения</Label>
+                <Label htmlFor={destination.name}>Место назначения</Label>
               </div>
-              <div className="">
+              <div>
                 <Controller
                   control={control}
-                  name="destination"
-                  rules={rules.destination.rules}
+                  name={destination.name}
+                  rules={destination.rules}
                   render={({ field }) => (
                     <Input
+                      id={destination.name}
                       placeholder="Город или страна"
-                      className={`h-10 bg-background/70 focus:bg-background/80 ${errors[rules.destination.name] ? "border-warning-component focus-visible:ring-warning-component" : null}`}
+                      className={`h-10 bg-background/70 focus:bg-background/80 ${errors[destination.name] ? "border-warning-component focus-visible:ring-warning-component" : null}`}
                       {...field}
                     ></Input>
                   )}
                 />
               </div>
               <span className="absolute left-0 top-full">
-                {errors[rules.destination.name] ? (
+                {errors[destination.name] ? (
                   <span className="text-sm text-warning-text">
-                    {errors[rules.destination.name].message}
+                    {errors[destination.name].message}
                   </span>
                 ) : null}
               </span>
@@ -95,11 +82,11 @@ const FormHotelSearch = () => {
               </div>
               <Controller
                 control={control}
-                name="dates"
-                rules={rules.dates.rules}
+                name={dates.name}
+                rules={dates.rules}
                 render={({ field }) => (
                   <DatePickerWithRange
-                    className={`h-10 w-full bg-background/70 px-[11px] focus:bg-background/80 ${errors[rules.dates.name] ? "border-warning-component focus-visible:ring-warning-component" : null}`}
+                    className={`h-10 w-full bg-background/70 px-[11px] focus:bg-background/80 ${errors[dates.name] ? "border-warning-component focus-visible:ring-warning-component" : null}`}
                     value={field.value}
                     onChange={field.onChange}
                     {...field}
@@ -107,25 +94,26 @@ const FormHotelSearch = () => {
                 )}
               />
               <span className="absolute left-0 top-full">
-                {errors[rules.dates.name] ? (
+                {errors[dates.name] ? (
                   <span className="text-sm text-warning-text">
-                    {errors[rules.dates.name].message}
+                    {errors[dates.name].message}
                   </span>
                 ) : null}
               </span>
             </div>
             <div className="relative col-span-2 xl:col-span-2">
               <div>
-                <Label>Гости</Label>
+                <Label htmlFor={guests.name}>Гости</Label>
               </div>
               <Controller
                 control={control}
-                name="guests"
-                rules={rules.guests.rules}
+                name={guests.name}
+                rules={guests.rules}
                 render={({ field }) => (
                   <Input
+                    id={guests.name}
                     placeholder="Количество гостей"
-                    className={`h-10 bg-background/70 focus:bg-background/80 ${errors[rules.guests.name] ? "border-warning-component focus-visible:ring-warning-component" : null}`}
+                    className={`h-10 bg-background/70 focus:bg-background/80 ${errors[guests.name] ? "border-warning-component focus-visible:ring-warning-component" : null}`}
                     {...field}
                     onChange={(e) => {
                       let newValue = e.target.value;
@@ -136,9 +124,9 @@ const FormHotelSearch = () => {
                 )}
               />
               <span className="absolute left-0 top-full">
-                {errors[rules.guests.name] ? (
+                {errors[guests.name] ? (
                   <span className="text-sm text-warning-text">
-                    {errors[rules.guests.name].message}
+                    {errors[guests.name].message}
                   </span>
                 ) : null}
               </span>
