@@ -1,7 +1,13 @@
+import { HotelSearch } from "@/modules/HotelSearch";
+import { PopularDestinations } from "@/modules/PopularDestinations";
+
 const HomePage = () => {
-  return <div>
-    
-  </div>;
+  return (
+    <>
+      <HotelSearch></HotelSearch>
+      <PopularDestinations></PopularDestinations>
+    </>
+  );
 };
 
 export default HomePage;

@@ -1,15 +1,17 @@
-import { Navbar } from "@/modules/NavigationBar";
-import { HotelSearch } from "@/modules/HotelSearch";
-import { PopularDestinations } from "@/modules/PopularDestinations";
-import { Footer } from "@/modules/Footer";
+import { Route, Routes } from "react-router";
+import MainLayout from "./layouts/MainLayout";
+import HomePage from "./pages/HomePage";
+import SearchResultPage from "./pages/SearchResultPage";
 
 function App() {
   return (
     <>
-      <Navbar></Navbar>
-      <HotelSearch></HotelSearch>
-      <PopularDestinations></PopularDestinations>
-      <Footer></Footer>
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<HomePage />}></Route>
+          <Route path="search-result" element={<SearchResultPage />}></Route>
+        </Route>
+      </Routes>
     </>
   );
 }

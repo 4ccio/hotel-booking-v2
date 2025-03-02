@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { items } from "../constants/footerItems";
 import logo from "@/assets/logo.svg";
 
@@ -7,14 +8,14 @@ const Footer = () => {
       <div className="max-auto container w-full">
         <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
           <div className="max-w-52 rounded-lg p-4">
-            <a href="/" className="mb-2 flex items-center">
+            <Link to="/" className="mb-2 flex items-center">
               <img
                 src={logo}
                 alt="logo"
                 className="mr-1 h-8 w-auto sm:h-10"
               ></img>
               <span className="text-xl font-bold lg:text-2xl">myHotel</span>
-            </a>
+            </Link>
             <p className="max-w-fit font-semibold">
               Ваш верный спутник в путешествиях!
             </p>
