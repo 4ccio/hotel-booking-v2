@@ -4,7 +4,7 @@ import { Heart, CircleUserRound } from "lucide-react";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { BREAKPOINTS as bp } from "@/config/breakpoints";
 import logo from "@/assets/logo.svg";
-import { AuthDialog } from "@/modules/Authentication";
+import { AuthModal } from "@/modules/Authentication";
 
 const Navbar = () => {
   const isMobile = useMediaQuery(bp.sm);
@@ -25,14 +25,14 @@ const Navbar = () => {
           </Button>
         </div>
         <div>
-          <AuthDialog>
+          <AuthModal>
             <Button variant="ghost" size={isMobile ? "icon" : "default"}>
               <CircleUserRound size={20} />
               {!isMobile ? (
                 <span className="text-lg font-semibold">Войти</span>
               ) : null}
             </Button>
-          </AuthDialog>
+          </AuthModal>
         </div>
       </div>
     </nav>

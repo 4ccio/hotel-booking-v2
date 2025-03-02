@@ -1,1 +1,1 @@
-export { default as AuthDialog } from "./components/AuthDialog";
+export { default as AuthModal } from "./components/AuthModal/AuthModal";
