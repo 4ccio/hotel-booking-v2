@@ -3,7 +3,7 @@ import logo from "@/assets/logo.svg";
 
 const Footer = () => {
   return (
-    <footer className="mt-8 bg-secondary py-4 md:py-6">
+    <footer className="mt-8 bg-secondary py-4">
       <div className="max-auto container w-full">
         <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
           <div className="max-w-52 rounded-lg p-4">
