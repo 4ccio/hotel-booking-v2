@@ -4,10 +4,10 @@ import logo from "@/assets/logo.svg";
 
 const Footer = () => {
   return (
-    <footer className="mt-8 bg-secondary py-4">
+    <footer className="mt-6 bg-secondary py-4">
       <div className="max-auto container w-full">
-        <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
-          <div className="max-w-52 rounded-lg p-4">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          <div className="max-w-52">
             <Link to="/" className="mb-2 flex items-center">
               <img
                 src={logo}
@@ -16,13 +16,13 @@ const Footer = () => {
               ></img>
               <span className="text-xl font-bold lg:text-2xl">myHotel</span>
             </Link>
-            <p className="max-w-fit font-semibold">
+            <p className="max-w-fit text-balance font-semibold">
               Ваш верный спутник в путешествиях!
             </p>
           </div>
           {items.map((item, index) => {
             return (
-              <div key={index} className="p-4">
+              <div key={index} className="">
                 <h4 className="mb-1.5 font-semibold text-secondary-foreground">
                   {item.header}
                 </h4>

@@ -1,4 +1,6 @@
 import { Controller, useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
+import { format } from "date-fns";
 import { DatePickerWithRange } from "@/components/DatePickerWithRange";
 import { Button } from "@/ui/button";
 import {
@@ -18,6 +20,8 @@ const { onlyDigits } = inputRules;
 const { destination, dates, guests } = rules;
 
 const FormHotelSearch = () => {
+  const navigate = useNavigate();
+
   const {
     control,
     handleSubmit,
@@ -34,7 +38,13 @@ const FormHotelSearch = () => {
   });
 
   const handleFormSubmit = (data) => {
-    // alert(JSON.stringify(data));
+    const { destination, guests } = data;
+    const checkin = format(new Date(data.dates.from), "yyyy-MM-dd");
+    const checkout = format(new Date(data.dates.to), "yyyy-MM-dd");
+
+    navigate(
+      `/search-result?destination=${destination}&checkin=${checkin}&checkout=${checkout}&guests=${guests}`,
+    );
   };
 
   return (
