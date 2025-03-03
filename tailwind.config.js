@@ -10,6 +10,30 @@ export default {
         nunito: ["Nunito, sans-serif"],
         montserrat: ["Montserrat, sans-serif"],
       },
+      fontSize: {
+        xs: ["12px", "16px"],
+        sm: ["14px", "20px"],
+        base: ["16px", "22px"],
+        lg: ["18px", "24px"],
+        xl: ["20px", "28px"],
+        "2xl": ["24px", "32px"],
+        "3xl": ["32px", "40px"],
+        "4xl": ["40px", "48px"],
+      },
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: "1.5rem",
+          sm: "2rem",
+          lg: "4rem",
+          xl: "5rem",
+          "2xl": "6rem",
+        },
+      },
+      backgroundImage: {
+        "hotel-search": "url('@/assets/street.jpg')",
+      },
+      // shadcn styles
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -56,6 +80,9 @@ export default {
           4: "hsl(var(--chart-4))",
           5: "hsl(var(--chart-5))",
         },
+        "warning-background": "hsl(var(--warning-background))",
+        "warning-text": "hsl(var(--warning-text))",
+        "warning-component": "hsl(var(--warning-component))",
       },
     },
   },
