@@ -10,29 +10,31 @@ const Navbar = () => {
   const isMobile = useMediaQuery(bp.sm);
 
   return (
-    <nav className="container mx-auto flex w-full items-center justify-between py-2 sm:py-4">
-      <Link to={"/"} className="flex items-center">
-        <img src={logo} alt="logo" className="mr-2 size-8 sm:size-10"></img>
-        <span className="text-xl font-bold sm:text-2xl">myHotel</span>
-      </Link>
-      <div className="flex items-center gap-2 sm:gap-6">
-        <div>
-          <Button variant="ghost" size={isMobile ? "icon" : "default"}>
-            <Heart size={20} />
-            {!isMobile ? (
-              <span className="text-lg font-semibold">Избранное</span>
-            ) : null}
-          </Button>
-        </div>
-        <div>
-          <AuthModal>
+    <nav className="border-b border-border">
+      <div className="container mx-auto flex w-full items-center justify-between py-2 sm:py-4">
+        <Link to={"/"} className="flex items-center">
+          <img src={logo} alt="logo" className="mr-2 size-8 sm:size-10"></img>
+          <span className="text-xl font-bold sm:text-2xl">myHotel</span>
+        </Link>
+        <div className="flex items-center gap-2 sm:gap-6">
+          <div>
             <Button variant="ghost" size={isMobile ? "icon" : "default"}>
-              <CircleUserRound size={20} />
+              <Heart size={20} />
               {!isMobile ? (
-                <span className="text-lg font-semibold">Войти</span>
+                <span className="text-lg font-semibold">Избранное</span>
               ) : null}
             </Button>
-          </AuthModal>
+          </div>
+          <div>
+            <AuthModal>
+              <Button variant="ghost" size={isMobile ? "icon" : "default"}>
+                <CircleUserRound size={20} />
+                {!isMobile ? (
+                  <span className="text-lg font-semibold">Войти</span>
+                ) : null}
+              </Button>
+            </AuthModal>
+          </div>
         </div>
       </div>
     </nav>
