@@ -1,9 +1,7 @@
-// import { apiAuth } from "./api";
-
 export function dataPreparation(data) {
   const cleanedData = {};
 
-  Object.entries(data).forEach(([key, value]) => {
+  const formatValue = (key, value) => {
     let cleanedValue = value.trim();
 
     if (key === "phoneNumber") {
@@ -11,15 +9,15 @@ export function dataPreparation(data) {
     }
 
     if (key === "telegramUsername") {
-      cleanedValue = "@" + cleanedValue.split("@").join("");
+      cleanedValue = "@" + cleanedValue.replace(/^@/, "");
     }
 
-    if (value === "") {
-      cleanedValue = null;
-    }
-    cleanedData[key] = cleanedValue;
+    return cleanedValue === "" ? null : cleanedValue;
+  };
+
+  Object.entries(data).forEach(([key, value]) => {
+    cleanedData[key] = formatValue(key, value);
   });
-  console.log(cleanedData);
-  // apiAuth(cleanedData);
+
   return cleanedData;
 }
