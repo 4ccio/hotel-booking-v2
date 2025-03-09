@@ -37,7 +37,7 @@ export const fetchUser = createAsyncThunk(
       //   userId,
       // };
 
-      const response = fetch(GET_USER_URL + userId, {
+      const response = await fetch(GET_USER_URL + userId, {
         method: "GET",
         headers: { "Content-type": "application/json" },
         // body: JSON.stringify(requestBody),
@@ -45,6 +45,7 @@ export const fetchUser = createAsyncThunk(
       });
 
       if (!response.ok) {
+        console.log("resp", response);
         throw new Error("failed");
       }
 
