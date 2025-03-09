@@ -3,7 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import { LoaderCircle } from "lucide-react";
 import { Label } from "@/ui/label";
 import { Button } from "@/ui/button";
-import { handleAuthRequest } from "../../services/authMiddleware";
+// import { handleAuthRequest } from "../../services/authMiddleware";
 import { formFields } from "../../constants/formFields";
 import { API_URLS } from "../../constants/apiURLS";
 
@@ -22,17 +22,17 @@ const FormSignUp = ({ setParentError }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleFormSubmit = async (data) => {
-    setIsLoading((prevState) => !prevState);
-    try {
-      const result = await handleAuthRequest(data, REQUEST_URL);
-      console.log(result);
-    } catch (error) {
-      const errorMessage =
-        error.response?.errorMessage ||
-        "Что-то пошло не так, повторите попытку позже";
-      setParentError(errorMessage);
-    }
-    setIsLoading((prevState) => !prevState);
+    // setIsLoading((prevState) => !prevState);
+    // try {
+    //   const result = await handleAuthRequest(data, REQUEST_URL);
+    //   console.log(result);
+    // } catch (error) {
+    //   const errorMessage =
+    //     error.response?.errorMessage ||
+    //     "Что-то пошло не так, повторите попытку позже";
+    //   setParentError(errorMessage);
+    // }
+    // setIsLoading((prevState) => !prevState);
   };
 
   return (

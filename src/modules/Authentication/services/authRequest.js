@@ -1,6 +1,6 @@
 import { dataPreparation } from "./dataPreparation";
 
-export async function authRequest(url, data) {
+export async function authRequest(data, url) {
   try {
     const cleanedData = dataPreparation(data);
 
@@ -14,11 +14,10 @@ export async function authRequest(url, data) {
 
     const responseData = await response.json();
 
-    if (!response.ok) {
-      throw new Error(
-        responseData.errorMessage ||
-          "Что-то пошло не так, повторите попытку позже",
-      );
+    if (!response.ok && response.status === 400) {
+      const error = new Error(responseData.errorMessage);
+      error.response = responseData;
+      throw error;
     }
 
     return responseData;

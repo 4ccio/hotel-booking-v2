@@ -23,6 +23,7 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.userId = action.payload.userId;
+        state.error = null;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -30,3 +31,6 @@ const authSlice = createSlice({
       });
   },
 });
+
+export const { logout } = authSlice.actions;
+export default authSlice.reducer;
