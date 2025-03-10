@@ -7,7 +7,8 @@ import { Button } from "@/ui/button";
 import { formFields, pickFormFields } from "../../constants/formFields";
 import { API_URLS } from "../../constants/apiURLS";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser, fetchUser } from "../../store/authThunks";
+import { loginUser } from "../../store/authThunks";
+import { fetchUser } from "@/modules/User";
 
 const REQUEST_TYPE = API_URLS.login;
 const loginFields = pickFormFields(formFields, ["phoneNumber", "password"]);

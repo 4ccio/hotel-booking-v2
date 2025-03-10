@@ -1,14 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUser } from "./authThunks";
+import { fetchUser } from "./userThunks";
 
 const initialState = {
-  // id: null,
-  name: null,
-  surname: null,
-  patronymic: null,
-  phoneNumber: null,
-  telegramUsername: null,
-  email: null,
+  userData: {
+    id: null,
+    name: null,
+    surname: null,
+    patronymic: null,
+    phoneNumber: null,
+    telegramUsername: null,
+    email: null,
+  },
   isLoading: false,
   error: null,
 };
@@ -16,7 +18,11 @@ const initialState = {
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    setUserId: (state, action) => {
+      state.userData.id = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUser.pending, (state) => {
@@ -25,12 +31,7 @@ const userSlice = createSlice({
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.name = action.payload.name;
-        state.surname = action.payload.surname;
-        state.patronymic = action.payload.patronymic;
-        state.phoneNumber = action.payload.phoneNumber;
-        state.telegramUsername = action.payload.telegramUsername;
-        state.email = action.payload.email;
+        state.userData = action.payload.data;
       })
       .addCase(fetchUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -39,5 +40,5 @@ const userSlice = createSlice({
   },
 });
 
-// export const { logout } = userSlice.actions;
+export const { setUserId } = userSlice.actions;
 export default userSlice.reducer;
