@@ -3,7 +3,7 @@ import { loginUser } from "./authThunks";
 
 const initialState = {
   isAuthorized: false,
-  accessToken: null,
+  accessToken: localStorage.getItem("token") || null,
   isLoading: false,
   error: null,
 };
@@ -24,6 +24,7 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.accessToken = action.payload.accessToken;
+        localStorage.setItem("token", action.payload.accessToken);
         state.isLoading = false;
         state.isAuthorized = true;
         state.error = null;

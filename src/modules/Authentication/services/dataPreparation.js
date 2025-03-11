@@ -5,7 +5,7 @@ export function dataPreparation(data) {
     let cleanedValue = value.trim();
 
     if (key === "phoneNumber") {
-      cleanedValue = "+" + cleanedValue.replace(/[ \-\(\)]/g, "");
+      cleanedValue = "+" + cleanedValue.replace(/[ \-()]/g, "");
     }
 
     if (key === "telegramUsername") {

@@ -1,19 +1,15 @@
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { LoaderCircle } from "lucide-react";
 import { useForm, Controller } from "react-hook-form";
 import { Label } from "@/ui/label";
 import { Button } from "@/ui/button";
-// import { handleAuthRequest } from "../../services/authMiddleware";
 import { formFields, pickFormFields } from "../../constants/formFields";
-import { API_URLS } from "../../constants/apiURLS";
-import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../store/authThunks";
 import { fetchUser } from "@/modules/User";
 
-const REQUEST_TYPE = API_URLS.login;
 const loginFields = pickFormFields(formFields, ["phoneNumber", "password"]);
 
-const FormSignIn = ({ setParentError }) => {
+const FormSignIn = () => {
   console.log("render");
 
   const dispatch = useDispatch();
@@ -29,30 +25,13 @@ const FormSignIn = ({ setParentError }) => {
 
   const isLoading = useSelector((state) => state.auth.isLoading);
 
-  // const [isLoading, setIsLoading] = useState(false);
-
   const handleFormSubmit = async (data) => {
-    // setIsLoading((prevState) => !prevState);
     const resultAction = await dispatch(loginUser(data));
 
     if (loginUser.fulfilled.match(resultAction)) {
       const result = await dispatch(fetchUser());
       console.log(result);
-    } else {
-      setParentError(resultAction.payload);
-      // setIsLoading((prevState) => !prevState);
     }
-    // setIsLoading((prevState) => !prevState);
-    // try {
-    //   const result = await handleAuthRequest(data, REQUEST_TYPE);
-    //   console.log(result);
-    // } catch (error) {
-    //   const errorMessage =
-    //     error.response?.errorMessage ||
-    //     "Что-то пошло не так, повторите попытку позже";
-    //   setParentError(errorMessage);
-    // }
-    // setIsLoading((prevState) => !prevState);
   };
 
   return (

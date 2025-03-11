@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useSelector } from "react-redux";
 import {
   Card,
   CardContent,
@@ -8,8 +8,8 @@ import {
 } from "@/ui/card";
 import FormSignIn from "./FormSignIn";
 
-const SignInCard = ({}) => {
-  const [showError, setshowError] = useState("");
+const SignInCard = () => {
+  const error = useSelector((state) => state.auth.error);
 
   return (
     <Card className="bg-background">
@@ -17,11 +17,11 @@ const SignInCard = ({}) => {
         <CardTitle className="text-center">Вход</CardTitle>
         <CardDescription className="text-center">
           <p>Введите свои данные для входа в учетную запись.</p>
-          {showError && <p className="text-warning-text">{showError}</p>}
+          {error && <p className="text-warning-text">{error}</p>}
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <FormSignIn setParentError={setshowError} />
+        <FormSignIn />
       </CardContent>
     </Card>
   );

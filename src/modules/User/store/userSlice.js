@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchUser } from "./userThunks";
 
+const storedUserData = JSON.parse(sessionStorage.getItem("userData") || "null");
+
 const initialState = {
-  userData: {
+  userData: storedUserData || {
     id: null,
     name: null,
     surname: null,
@@ -32,6 +34,7 @@ const userSlice = createSlice({
         state.isLoading = false;
         state.error = null;
         state.userData = action.payload.data;
+        sessionStorage.setItem("userData", JSON.stringify(action.payload.data));
       })
       .addCase(fetchUser.rejected, (state, action) => {
         state.isLoading = false;

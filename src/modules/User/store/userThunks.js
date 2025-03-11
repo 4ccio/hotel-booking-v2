@@ -1,7 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { API_URLS } from "../constants/apiURLS";
-
-const GET_USER_URL = API_URLS.getUser;
+import { getUser } from "../services/api";
 
 export const fetchUser = createAsyncThunk(
   "auth/fetchUser",
@@ -15,28 +13,12 @@ export const fetchUser = createAsyncThunk(
         throw new Error("No valid token");
       }
 
-      const URL = `${GET_USER_URL}/${userId}`;
-
-      const response = await fetch(URL, {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!response.ok) {
-        console.log("resp", response);
-        throw new Error("fetch failed");
-      }
-
-      const responseData = await response.json();
+      const responseData = await getUser(userId, token);
 
       const { data } = responseData;
 
       return { data };
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.message);
     }
   },
