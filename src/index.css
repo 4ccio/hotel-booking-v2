@@ -65,6 +65,12 @@
 
     --warning-text: 0 69% 47%;
 
+    --success-background: 126 81% 88%;
+
+    --success-component: 139 64% 38%;
+
+    --success-text: 139 66% 33%;
+
     --radius: 0.5rem;
   }
   .dark {

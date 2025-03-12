@@ -5,6 +5,7 @@ import { API_URLS } from "../constants/apiURLS";
 import { setUserId } from "@/modules/User";
 
 const LOGIN_URL = API_URLS.login;
+const REGISTER_URL = API_URLS.register;
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
@@ -21,7 +22,22 @@ export const loginUser = createAsyncThunk(
 
       return { accessToken: token };
     } catch (error) {
-      console.log(error);
+      return rejectWithValue(
+        error.response
+          ? error.message
+          : "Что-то пошло не так, повторите попытку позже",
+      );
+    }
+  },
+);
+
+export const registerUser = createAsyncThunk(
+  "auth/registerUser",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await authRequest(data, REGISTER_URL);
+      return response.isSuccess;
+    } catch (error) {
       return rejectWithValue(
         error.response
           ? error.message

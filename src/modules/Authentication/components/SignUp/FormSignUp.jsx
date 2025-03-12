@@ -1,15 +1,12 @@
-import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { LoaderCircle } from "lucide-react";
 import { Label } from "@/ui/label";
 import { Button } from "@/ui/button";
-// import { handleAuthRequest } from "../../services/authMiddleware";
 import { formFields } from "../../constants/formFields";
-import { API_URLS } from "../../constants/apiURLS";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../store/authThunks";
 
-const REQUEST_URL = API_URLS.register;
-
-const FormSignUp = ({ setParentError }) => {
+const FormSignUp = ({ onSignUpSuccess }) => {
   const {
     handleSubmit,
     formState: { errors },
@@ -19,20 +16,16 @@ const FormSignUp = ({ setParentError }) => {
     defaultValues: Object.fromEntries(formFields.map(({ name }) => [name, ""])),
   });
 
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.auth.isLoading);
 
   const handleFormSubmit = async (data) => {
-    // setIsLoading((prevState) => !prevState);
-    // try {
-    //   const result = await handleAuthRequest(data, REQUEST_URL);
-    //   console.log(result);
-    // } catch (error) {
-    //   const errorMessage =
-    //     error.response?.errorMessage ||
-    //     "Что-то пошло не так, повторите попытку позже";
-    //   setParentError(errorMessage);
-    // }
-    // setIsLoading((prevState) => !prevState);
+    const resultAction = await dispatch(registerUser(data));
+
+    if (registerUser.fulfilled.match(resultAction)) {
+      console.log("register successed", resultAction);
+      onSignUpSuccess();
+    }
   };
 
   return (
