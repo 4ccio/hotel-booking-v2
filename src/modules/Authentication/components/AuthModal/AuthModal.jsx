@@ -10,11 +10,6 @@ const AuthModal = ({ children }) => {
 
   const ModalComponent = isMobile ? AuthDrawer : AuthDialog;
 
-  // return isMobile ? (
-  //   <AuthDrawer>{children}</AuthDrawer>
-  // ) : (
-  //   <AuthDialog>{children}</AuthDialog>
-  // );
   return <ModalComponent {...props}>{children}</ModalComponent>;
 };
 

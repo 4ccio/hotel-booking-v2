@@ -6,11 +6,8 @@ import {
   CardTitle,
 } from "@/ui/card";
 import FormSignUp from "./FormSignUp";
-// import { useState } from "react";
 
 const SignUpCard = ({ errorMessage, ...props }) => {
-  // const [error, setError] = useState("");
-
   return (
     <Card className="bg-background">
       <CardHeader>
