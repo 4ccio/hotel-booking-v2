@@ -6,10 +6,10 @@ import {
   CardTitle,
 } from "@/ui/card";
 import FormSignUp from "./FormSignUp";
-import { useSelector } from "react-redux";
+// import { useState } from "react";
 
-const SignUpCard = ({ ...props }) => {
-  const error = useSelector((state) => state.auth.registerError);
+const SignUpCard = ({ errorMessage, ...props }) => {
+  // const [error, setError] = useState("");
 
   return (
     <Card className="bg-background">
@@ -17,7 +17,7 @@ const SignUpCard = ({ ...props }) => {
         <CardTitle className="text-center">Регистрация</CardTitle>
         <CardDescription className="text-center">
           <p>Введите свои данные для создания учётной записи.</p>
-          {error && <p className="text-warning-text">{error}</p>}
+          {errorMessage && <p className="text-warning-text">{errorMessage}</p>}
         </CardDescription>
       </CardHeader>
       <CardContent>

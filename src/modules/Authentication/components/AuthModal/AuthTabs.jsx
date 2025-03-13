@@ -2,28 +2,23 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
 import SignInCard from "../SignIn/CardSignIn";
 import SignUpCard from "../SignUp/CardSignUp";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 
 const SIGN_IN = "signIn";
 const SIGN_UP = "signUp";
 
-const AuthTabs = ({ className }) => {
-  const [activeTab, setActiveTab] = useState(SIGN_IN);
-  const [message, setMessage] = useState("");
-
-  const handleValueChange = (newValue) => {
-    setActiveTab(newValue);
-  };
-
-  const onSignUpSuccess = () => {
-    handleValueChange(SIGN_IN);
-    setMessage("Регистрация прошла успешно!");
-  };
-
+const AuthTabs = ({
+  className,
+  activeTab,
+  handleTabsChange,
+  successMessage,
+  onSignInSuccess,
+  onSignUpSuccess,
+  ...props
+}) => {
   return (
     <Tabs
       value={activeTab}
-      onValueChange={handleValueChange}
+      onValueChange={handleTabsChange}
       defaultValue={activeTab}
       className={cn("pt-6", className)}
     >
@@ -38,10 +33,14 @@ const AuthTabs = ({ className }) => {
 
       <div className="max-h-[calc(100vh-140px)] overflow-y-auto">
         <TabsContent value={SIGN_IN}>
-          <SignInCard successMessage={message} />
+          <SignInCard
+            successMessage={successMessage}
+            onSignInSuccess={onSignInSuccess}
+            {...props}
+          />
         </TabsContent>
         <TabsContent value={SIGN_UP}>
-          <SignUpCard onSignUpSuccess={onSignUpSuccess} />
+          <SignUpCard onSignUpSuccess={onSignUpSuccess} {...props} />
         </TabsContent>
       </div>
     </Tabs>

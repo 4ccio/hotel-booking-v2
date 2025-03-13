@@ -9,9 +9,9 @@ import {
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import AuthTabs from "./AuthTabs";
 
-const AuthDrawer = ({ children }) => {
+const AuthDrawer = ({ isOpen, handleModalState, children, ...props }) => {
   return (
-    <Drawer>
+    <Drawer opne={isOpen} onOpenChange={handleModalState}>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
       <DrawerContent>
         <VisuallyHidden>
@@ -22,7 +22,7 @@ const AuthDrawer = ({ children }) => {
             </DrawerDescription>
           </DrawerHeader>
         </VisuallyHidden>
-        <AuthTabs className="px-6 py-4" />
+        <AuthTabs className="px-6 py-4" {...props} />
       </DrawerContent>
     </Drawer>
   );

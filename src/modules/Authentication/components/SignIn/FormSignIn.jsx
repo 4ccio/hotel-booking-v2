@@ -9,10 +9,7 @@ import { fetchUser } from "@/modules/User";
 
 const loginFields = pickFormFields(formFields, ["phoneNumber", "password"]);
 
-const FormSignIn = () => {
-  console.log("render");
-
-  const dispatch = useDispatch();
+const FormSignIn = ({ setErrorMessage, onSignInSuccess }) => {
   const {
     handleSubmit,
     formState: { errors },
@@ -24,13 +21,16 @@ const FormSignIn = () => {
   });
 
   const isLoading = useSelector((state) => state.auth.isLoading);
+  const dispatch = useDispatch();
 
   const handleFormSubmit = async (data) => {
     const resultAction = await dispatch(loginUser(data));
 
     if (loginUser.fulfilled.match(resultAction)) {
-      const result = await dispatch(fetchUser());
-      console.log(result);
+      await dispatch(fetchUser());
+      onSignInSuccess();
+    } else if (loginUser.rejected.match(resultAction)) {
+      setErrorMessage(resultAction.payload);
     }
   };
 

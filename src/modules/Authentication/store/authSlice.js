@@ -5,8 +5,8 @@ const initialState = {
   isAuthorized: false,
   accessToken: localStorage.getItem("token") || null,
   isLoading: false,
-  loginError: null,
-  registerError: null,
+  // loginError: null,
+  // registerError: null,
 };
 
 const authSlice = createSlice({
@@ -29,10 +29,10 @@ const authSlice = createSlice({
         localStorage.setItem("token", action.payload.accessToken);
         state.isLoading = false;
         state.isAuthorized = true;
-        state.loginError = null;
+        // state.loginError = null;
       })
-      .addCase(loginUser.rejected, (state, action) => {
-        state.loginError = action.payload;
+      .addCase(loginUser.rejected, (state) => {
+        // state.loginError = action.payload;
         state.isLoading = false;
       })
       .addCase(registerUser.pending, (state) => {
@@ -40,10 +40,10 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state) => {
         state.isLoading = false;
-        state.registerError = null;
+        // state.registerError = null;
       })
-      .addCase(registerUser.rejected, (state, action) => {
-        state.registerError = action.payload;
+      .addCase(registerUser.rejected, (state) => {
+        // state.registerError = action.payload;
         state.isLoading = false;
       });
   },

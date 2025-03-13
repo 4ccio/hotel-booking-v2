@@ -6,7 +6,7 @@ import { formFields } from "../../constants/formFields";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../store/authThunks";
 
-const FormSignUp = ({ onSignUpSuccess }) => {
+const FormSignUp = ({ setErrorMessage, onSignUpSuccess }) => {
   const {
     handleSubmit,
     formState: { errors },
@@ -23,8 +23,9 @@ const FormSignUp = ({ onSignUpSuccess }) => {
     const resultAction = await dispatch(registerUser(data));
 
     if (registerUser.fulfilled.match(resultAction)) {
-      console.log("register successed", resultAction);
       onSignUpSuccess();
+    } else if (registerUser.rejected.match(resultAction)) {
+      setErrorMessage(resultAction.payload);
     }
   };
 

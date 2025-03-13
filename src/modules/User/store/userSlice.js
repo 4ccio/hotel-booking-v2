@@ -14,7 +14,6 @@ const initialState = {
     email: null,
   },
   isLoading: false,
-  error: null,
 };
 
 const userSlice = createSlice({
@@ -32,13 +31,11 @@ const userSlice = createSlice({
       })
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.error = null;
         state.userData = action.payload.data;
         sessionStorage.setItem("userData", JSON.stringify(action.payload.data));
       })
-      .addCase(fetchUser.rejected, (state, action) => {
+      .addCase(fetchUser.rejected, (state) => {
         state.isLoading = false;
-        state.error = action.payload;
       });
   },
 });
