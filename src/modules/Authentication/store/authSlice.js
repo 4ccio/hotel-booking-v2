@@ -1,9 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, registerUser } from "./authThunks";
+import { loginUser, refreshToken, registerUser } from "./authThunks";
+
+const getToken = () => localStorage.getItem("token");
+const setToken = (token) => localStorage.setItem("token", token);
+const removeToken = () => localStorage.removeItem("token");
+
+const storedToken = getToken();
 
 const initialState = {
-  isAuthorized: false,
-  accessToken: localStorage.getItem("token") || null,
+  isAuthorized: !!storedToken,
+  accessToken: storedToken || null,
   isLoading: false,
 };
 
@@ -12,19 +18,28 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      localStorage.removeItem("token");
+      removeToken();
       state.accessToken = null;
       state.isAuthorized = false;
     },
   },
   extraReducers: (builder) => {
     builder
+      .addCase(refreshToken.fulfilled, (state, action) => {
+        state.accessToken = action.payload.accessToken;
+        setToken(action.payload.accessToken);
+      })
+      .addCase(refreshToken.rejected, (state) => {
+        state.accessToken = null;
+        removeToken();
+        state.isAuthorized = false;
+      })
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.accessToken = action.payload.accessToken;
-        localStorage.setItem("token", action.payload.accessToken);
+        setToken(action.payload.accessToken);
         state.isLoading = false;
         state.isAuthorized = true;
       })

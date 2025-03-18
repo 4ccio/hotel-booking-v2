@@ -5,9 +5,17 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { BREAKPOINTS as bp } from "@/config/breakpoints";
 import logo from "@/assets/logo.svg";
 import { AuthModal } from "@/modules/Authentication";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const isMobile = useMediaQuery(bp.sm);
+
+  const isAuthorized = useSelector((state) => state.auth.isAuthorized);
+  const userData = useSelector((state) => state.user.userData);
+  let { name } = userData;
+  if (String(name).length > 20) {
+    name = "Профиль";
+  }
 
   return (
     <nav className="border-b border-border">
@@ -25,15 +33,34 @@ const Navbar = () => {
               ) : null}
             </Button>
           </div>
-          <div>
-            <AuthModal>
+          <div className="">
+            {isAuthorized ? (
+              <Link to={"account"}>
+                <Button variant="ghost" size={isMobile ? "icon" : "default"}>
+                  <CircleUserRound size={20} />
+                  {!isMobile ? (
+                    <p className="text-lg font-semibold">{name}</p>
+                  ) : null}
+                </Button>
+              </Link>
+            ) : (
+              <AuthModal>
+                <Button variant="ghost" size={isMobile ? "icon" : "default"}>
+                  <CircleUserRound size={20} />
+                  {!isMobile ? (
+                    <span className="text-lg font-semibold">Войти</span>
+                  ) : null}
+                </Button>
+              </AuthModal>
+            )}
+            {/* <AuthModal>
               <Button variant="ghost" size={isMobile ? "icon" : "default"}>
                 <CircleUserRound size={20} />
                 {!isMobile ? (
                   <span className="text-lg font-semibold">Войти</span>
                 ) : null}
               </Button>
-            </AuthModal>
+            </AuthModal> */}
           </div>
         </div>
       </div>
