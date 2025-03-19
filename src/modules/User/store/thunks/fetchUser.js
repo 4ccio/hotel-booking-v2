@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { authFetch } from "@/modules/Authentication";
-import { API_URLS as api } from "../constants/apiURLS";
+import { API_URLS as api } from "../../constants/apiURLS";
 import { jwtDecode } from "jwt-decode";
 
 const GET_USER_URL = api.getUser;

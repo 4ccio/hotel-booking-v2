@@ -4,7 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import { Label } from "@/ui/label";
 import { Button } from "@/ui/button";
 import { formFields, pickFormFields } from "../../constants/formFields";
-import { loginUser } from "../../store/authThunks";
+import { loginUser } from "../../store/thunks";
 import { fetchUser } from "@/modules/User";
 
 const loginFields = pickFormFields(formFields, ["phoneNumber", "password"]);

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, refreshToken, registerUser } from "./authThunks";
+import { loginUser, refreshToken, registerUser } from "./thunks";
 
 const getToken = () => localStorage.getItem("token");
 const setToken = (token) => localStorage.setItem("token", token);

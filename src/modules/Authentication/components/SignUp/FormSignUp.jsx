@@ -4,7 +4,7 @@ import { Label } from "@/ui/label";
 import { Button } from "@/ui/button";
 import { formFields } from "../../constants/formFields";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../store/authThunks";
+import { registerUser } from "../../store/thunks";
 
 const FormSignUp = ({ setErrorMessage, onSignUpSuccess }) => {
   const {

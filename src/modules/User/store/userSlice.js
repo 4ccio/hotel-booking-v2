@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUser } from "./userThunks";
+import { fetchUser } from "./thunks";
 
 const initialState = {
   userData: {
@@ -33,6 +33,7 @@ const userSlice = createSlice({
       })
       .addCase(fetchUser.rejected, (state) => {
         state.isLoading = false;
+        state.userData = null;
       });
   },
 });
