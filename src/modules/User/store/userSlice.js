@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUser } from "./thunks";
+import { fetchUser, updateUser } from "./thunks";
 
 const initialState = {
   userData: {
@@ -34,6 +34,16 @@ const userSlice = createSlice({
       .addCase(fetchUser.rejected, (state) => {
         state.isLoading = false;
         state.userData = null;
+      })
+      .addCase(updateUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userData = action.payload.data;
+      })
+      .addCase(updateUser.rejected, (state) => {
+        state.isLoading = false;
       });
   },
 });

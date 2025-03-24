@@ -1,6 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { refreshToken } from "./refreshToken";
 
+let refreshingPromise = null;
+
 export const authFetch = createAsyncThunk(
   "auth/authFetch",
   async ({ url, options = {} }, { dispatch, getState, rejectWithValue }) => {
@@ -20,19 +22,25 @@ export const authFetch = createAsyncThunk(
     let response = await fetchWithToken(accessToken);
 
     if (response.status === 401) {
-      const refreshResponse = await dispatch(refreshToken());
-
-      if (refreshToken.rejected.match(refreshResponse)) {
-        return rejectWithValue(
-          "Unauthorized, access and refresh tokens invalid",
-        );
+      if (!refreshingPromise) {
+        refreshingPromise = dispatch(refreshToken())
+          .then((result) => {
+            if (refreshToken.rejected.match(result)) {
+              throw new Error("Refresh token failed");
+            }
+            return result.payload.accessToken;
+          })
+          .finally(() => {
+            refreshingPromise = null;
+          });
       }
 
-      response = await fetchWithToken(refreshResponse.payload.accessToken);
+      const newToken = await refreshingPromise;
+
+      response = await fetchWithToken(newToken);
     }
 
     if (!response.ok) {
-      console.log(response.status);
       return rejectWithValue("failed to authFetch");
     }
 

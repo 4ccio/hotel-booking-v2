@@ -6,6 +6,7 @@ export async function authRequest(data, url) {
   const response = await fetch(url, {
     method: "POST",
     body: JSON.stringify(cleanedData),
+    credentials: "include",
     headers: {
       "Content-type": "application/json",
     },

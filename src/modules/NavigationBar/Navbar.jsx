@@ -12,10 +12,8 @@ const Navbar = () => {
 
   const isAuthorized = useSelector((state) => state.auth.isAuthorized);
   const userData = useSelector((state) => state.user.userData);
-  let { name } = userData;
-  if (String(name).length > 20) {
-    name = "Профиль";
-  }
+  const name =
+    userData?.name && userData.name.length <= 20 ? userData.name : "Профиль";
 
   return (
     <nav className="border-b border-border">
@@ -53,14 +51,6 @@ const Navbar = () => {
                 </Button>
               </AuthModal>
             )}
-            {/* <AuthModal>
-              <Button variant="ghost" size={isMobile ? "icon" : "default"}>
-                <CircleUserRound size={20} />
-                {!isMobile ? (
-                  <span className="text-lg font-semibold">Войти</span>
-                ) : null}
-              </Button>
-            </AuthModal> */}
           </div>
         </div>
       </div>
