@@ -4,9 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { useCallback, useEffect, useState } from "react";
 import { fetchUser } from "../../store/thunks";
 import { Separator } from "@/ui/separator";
-import Options from "./Options/Options";
 import { TABS } from "../../constants/profileOptions";
-import Content from "./Content/Content";
+import LoadingScreen from "@/components/LoadingScreen";
+import AccountTabs from "./AccountTabs";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/ui/select";
+import { BREAKPOINTS as bp } from "@/config/breakpoints";
 
 const AccountWrapper = () => {
   const navigate = useNavigate();
@@ -17,6 +27,8 @@ const AccountWrapper = () => {
   const [activeTab, setActiveTab] = useState(TABS[0].id);
 
   const { hasAccess, loading } = usePageAccess();
+
+  const isMobile = useMediaQuery(bp.sm);
 
   const loadUserData = useCallback(async () => {
     if (!userData) {
@@ -33,7 +45,7 @@ const AccountWrapper = () => {
   }, [loading, hasAccess, navigate, loadUserData]);
 
   if (loading) {
-    return <div className="font-bold">ЗАГРУЗКА</div>;
+    return <LoadingScreen />;
   }
 
   if (!userData) {
@@ -48,14 +60,38 @@ const AccountWrapper = () => {
     <section className="container mx-auto my-4">
       <p className="text-2xl font-semibold">{`${userData?.name} ${userData?.surname}`}</p>
       <Separator className="my-4"></Separator>
-      <div className="grid grid-cols-12 gap-4 md:gap-10">
-        <div className="col-span-12 sm:col-span-3 xl:col-span-2">
-          <Options activeTab={activeTab} setActiveTab={setActiveTab} />
+      {isMobile ? (
+        <div className="flex flex-col gap-4">
+          <div className="grow">
+            <Select value={activeTab} onValueChange={setActiveTab}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {TABS.map((item) => {
+                    return (
+                      <SelectItem key={item.id} value={item.id}>
+                        {item.label}
+                      </SelectItem>
+                    );
+                  })}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="grow">
+            {TABS.map(({ id, content: Content }) =>
+              id === activeTab ? <Content key={id} /> : null,
+            ) || "Не найдено"}
+          </div>
         </div>
-        <div className="col-span-12 sm:col-span-9 xl:col-span-10">
-          <Content activeTab={activeTab} />
-        </div>
-      </div>
+      ) : (
+        <AccountTabs
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        ></AccountTabs>
+      )}
     </section>
   );
 };

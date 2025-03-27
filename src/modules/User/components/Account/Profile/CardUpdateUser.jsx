@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -5,24 +6,32 @@ import {
   CardHeader,
   CardTitle,
 } from "@/ui/card";
+import AlertError from "@/components/AlertError";
+import AlertSuccess from "@/components/AlertSuccess";
 import FormUpdateUser from "./FormUpdateUser";
-import { useState } from "react";
 
-const SignInCard = () => {
+const CardUpdateUser = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   return (
-    <Card className="max-w-lg bg-background">
+    <Card className="max-w-md bg-background">
       <CardHeader>
         <CardTitle className="text-center">Данные пользователя</CardTitle>
         <CardDescription className="text-center">
           <p>Вы можете внести изменения в данные своей учётной записи.</p>
-          {errorMessage && <p className="text-warning-text">{errorMessage}</p>}
+          {errorMessage && (
+            <div className="flex w-full items-center justify-center pt-2">
+              <AlertError>{errorMessage}</AlertError>
+            </div>
+          )}
           {successMessage && (
-            <p className="text-success-text">{successMessage}</p>
+            <div className="flex w-full items-center justify-center pt-2">
+              <AlertSuccess>{successMessage}</AlertSuccess>
+            </div>
           )}
         </CardDescription>
       </CardHeader>
+
       <CardContent>
         <FormUpdateUser
           setErrorMessage={setErrorMessage}
@@ -33,4 +42,4 @@ const SignInCard = () => {
   );
 };
 
-export default SignInCard;
+export default CardUpdateUser;

@@ -5,6 +5,9 @@ export default {
   content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
     extend: {
+      animation: {
+        "spin-slow": "spin 2s linear infinite",
+      },
       fontFamily: {
         // inter: ["Inter, sans-serif"],
         nunito: ["Nunito, sans-serif"],

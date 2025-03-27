@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { authFetch } from "@/modules/Authentication";
 import { API_URLS as api } from "../../constants/apiURLS";
 
-const UPDATE_USER_URL = api.updateUser;
+const URL = api.updateUser;
 
 export const updateUser = createAsyncThunk(
   "auth/updateUser",
@@ -15,8 +15,6 @@ export const updateUser = createAsyncThunk(
     const userId = user.userData.id;
 
     const requestBody = { ...userData, id: userId };
-
-    const URL = UPDATE_USER_URL;
 
     const responseData = await dispatch(
       authFetch({

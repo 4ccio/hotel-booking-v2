@@ -25,10 +25,10 @@ const FormUpdateUser = ({ setErrorMessage, setSuccessMessage }) => {
   const handleFormSubmit = async (data) => {
     console.log(data);
     try {
-      await dispatch(updateUser(data)).unwrap(); // Если ошибка, сразу поймаем в catch
+      await dispatch(updateUser(data)).unwrap();
       setSuccessMessage("Данные успешно обновлены");
     } catch {
-      setErrorMessage("Ошибка обновления данных"); // error = payload из rejectWithValue
+      setErrorMessage("Ошибка обновления данных");
     }
   };
 
