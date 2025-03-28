@@ -16,6 +16,7 @@ export const authFetch = createAsyncThunk(
           ...options.headers,
           Authorization: `Bearer ${token}`,
         },
+        credentials: "include",
       });
     };
 
