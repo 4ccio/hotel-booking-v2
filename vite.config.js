@@ -13,4 +13,9 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  // server: {
+  //   https: true,
+  //   host: "localhost",
+  //   port: 5173,
+  // },
 });

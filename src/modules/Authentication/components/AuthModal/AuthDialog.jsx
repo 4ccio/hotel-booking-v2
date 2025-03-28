@@ -9,9 +9,9 @@ import {
 import AuthTabs from "./AuthTabs";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
-const AuthDialog = ({ children }) => {
+const AuthDialog = ({ isOpen, handleModalState, children, ...props }) => {
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={handleModalState}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="max-h-[100vh] max-w-[24rem] overflow-hidden">
         <VisuallyHidden>
@@ -22,7 +22,7 @@ const AuthDialog = ({ children }) => {
             </DialogDescription>
           </DialogHeader>
         </VisuallyHidden>
-        <AuthTabs />
+        <AuthTabs {...props} />
       </DialogContent>
     </Dialog>
   );
