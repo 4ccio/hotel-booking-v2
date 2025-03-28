@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from "@/ui/select";
 import { BREAKPOINTS as bp } from "@/config/breakpoints";
+import ErrorScreen from "@/components/ErrorScreen";
 
 const AccountWrapper = () => {
   const navigate = useNavigate();
@@ -49,11 +50,7 @@ const AccountWrapper = () => {
   }
 
   if (!userData) {
-    return (
-      <div className="font-bold">
-        Не удалось загрузить данные, повторите попытку позже
-      </div>
-    );
+    return <ErrorScreen>{"Ошибка загрузки данных"}</ErrorScreen>;
   }
 
   return (

@@ -7,11 +7,14 @@ import {
 } from "@/ui/collapsible";
 import { Button } from "@/ui/button";
 import { Separator } from "@/ui/separator";
-import { logout } from "@/modules/Authentication";
+import ModalAlert from "@/components/ModalAlert";
 import FormChangePassword from "./FormChangePassword";
+import { logout } from "@/modules/Authentication";
 
 const CardSettings = () => {
   const dispatch = useDispatch();
+
+  const handleLogOut = () => dispatch(logout());
 
   return (
     <div className="max-w-sm rounded-md border border-border p-6 shadow-sm">
@@ -35,22 +38,30 @@ const CardSettings = () => {
         <div className="flex justify-between gap-2">
           <p className="text-lg">Аккаунт</p>
           <div className="flex flex-col gap-2">
-            <Button
-              onClick={() => dispatch(logout())}
-              variant="outline"
-              size="sm"
+            <ModalAlert
+              title={"Выйти из аккаунта?"}
+              description={"Вы уверены, что хотите выйти из учётной записи?"}
+              onSubmit={handleLogOut}
             >
-              <LogOut size={16} />
-              Выйти
-            </Button>
-            <Button
-              variant="destructive"
-              className="bg-warning-component text-warning-background"
-              size="sm"
+              <Button variant="outline" size="sm">
+                <LogOut size={16} />
+                Выйти
+              </Button>
+            </ModalAlert>
+            <ModalAlert
+              title={"Удалить аккаунт?"}
+              description={"Вы уверены, что хотите удалить учётную запись?"}
+              onSubmit={() => true}
             >
-              <Trash2 size={16} />
-              Удалить
-            </Button>
+              <Button
+                variant="destructive"
+                className="bg-warning-component text-warning-background"
+                size="sm"
+              >
+                <Trash2 size={16} />
+                Удалить
+              </Button>
+            </ModalAlert>
           </div>
         </div>
       </div>
